@@ -1,16 +1,20 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <Box v-for="box in getBoxSpace" :key="box.id" :box="box" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Box from './components/Box'
+import { mapGetters } from 'vuex'
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    Box,
+  },
+  computed: {
+    ...mapGetters(['getBoxSpace']),
+  },
 }
 </script>
 
