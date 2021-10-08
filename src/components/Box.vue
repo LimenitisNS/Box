@@ -4,6 +4,15 @@
       <span>{{ cat.name }}</span>
     </div>
     <Box v-for="innerBox in box.boxes" :key="innerBox.id" :box="innerBox" />
+    <button class="add-button-cat" @click="eatFood">
+      <img
+        v-if="!box.food.isEaten"
+        :src="require(`../assets/${box.food.image}.png`)"
+        width="32"
+        height="32"
+      />
+      <img v-else src="../assets/dish-washing.png" width="32" height="32" />
+    </button>
     <button class="add-button-cat" @click="addCat">
       <img src="../assets/cat.svg" width="32" height="32" alt="cat" />
     </button>
@@ -23,7 +32,7 @@ export default {
     default: () => ({}),
   },
   methods: {
-    ...mapMutations(['addCatInBox', 'addBoxInBox']),
+    ...mapMutations(['addCatInBox', 'addBoxInBox', 'catEatFood']),
     addCat() {
       this.addCatInBox({
         id: this.box.id,
@@ -34,13 +43,24 @@ export default {
       })
     },
     addBox() {
+      const food = ['fish', 'sausage', 'sour-cream']
+
       this.addBoxInBox({
         id: this.box.id,
         box: {
           id: Math.random().toString(36).substr(2),
           cats: [],
           boxes: [],
+          food: {
+            image: food[Math.floor(Math.random() * 3)],
+            isEaten: false,
+          },
         },
+      })
+    },
+    eatFood() {
+      this.catEatFood({
+        id: this.box.id,
       })
     },
   },

@@ -5,6 +5,10 @@ export default {
         id: 1,
         cats: [],
         boxes: [],
+        food: {
+          image: 'fish',
+          isEaten: false,
+        },
       },
     ],
   },
@@ -14,6 +18,10 @@ export default {
     },
     addBoxInBox(state, payload) {
       state.boxSpace.map((box) => findBoxById(box, payload.id))[0].boxes.push(payload.box)
+    },
+    catEatFood(state, payload) {
+      console.log(payload)
+      state.boxSpace.map((box) => findBoxById(box, payload.id))[0].food.isEaten = true
     },
   },
   actions: {},
